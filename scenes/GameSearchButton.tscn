@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cadpoeq3ud0ub"]
+
+[ext_resource type="Theme" uid="uid://odfoqtajwy5k" path="res://resources/themes/game_selection.tres" id="1_2phos"]
+[ext_resource type="Script" path="res://scenes/scripts/GameSearchButton.gd" id="2_h6ied"]
+
+[node name="GameSearchButton" type="Button"]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_2phos")
+script = ExtResource("2_h6ied")
+
+[connection signal="pressed" from="." to="." method="clicked"]

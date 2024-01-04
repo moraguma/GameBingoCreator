@@ -1,0 +1,583 @@
+[gd_scene load_steps=18 format=3 uid="uid://cg75xk10nhfq0"]
+
+[ext_resource type="Script" path="res://scenes/scripts/GameSelector.gd" id="1_gduni"]
+[ext_resource type="Script" path="res://scenes/scripts/Search.gd" id="2_8kqyv"]
+[ext_resource type="Theme" uid="uid://o2i71rs4x504" path="res://resources/themes/main.tres" id="2_ftmlp"]
+[ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ouwpo"]
+[ext_resource type="Texture2D" uid="uid://b71brduijqi02" path="res://resources/sprites/white.png" id="3_shw3k"]
+[ext_resource type="PackedScene" uid="uid://cadpoeq3ud0ub" path="res://scenes/GameSearchButton.tscn" id="4_v23py"]
+[ext_resource type="Script" path="res://scenes/scripts/GameDisplay.gd" id="5_ee5jf"]
+[ext_resource type="Script" path="res://scenes/scripts/LoadingScreen.gd" id="6_i7bgs"]
+[ext_resource type="FontFile" uid="uid://dk54uuvb1uy7u" path="res://resources/fonts/league-spartan-master/LeagueSpartan-Bold.otf" id="9_b75eh"]
+[ext_resource type="Script" path="res://scenes/scripts/Bingo.gd" id="10_aab0b"]
+[ext_resource type="Script" path="res://scenes/scripts/Console.gd" id="10_n6arx"]
+[ext_resource type="PackedScene" uid="uid://b45ky330rawk2" path="res://scenes/BingoCover.tscn" id="10_y8pi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wn46i"]
+shader = ExtResource("2_ouwpo")
+shader_parameter/bottom_color = Color(0.345098, 0.305882, 0.380392, 1)
+shader_parameter/top_color = Color(0.972549, 0.968627, 0.976471, 1)
+shader_parameter/ray_distance = 0.02
+shader_parameter/ray_width = 0.02
+shader_parameter/ray_length = 0.3
+shader_parameter/ray_spacing = 0.5
+shader_parameter/time_scale = 0.1
+shader_parameter/level_time_diff = 0.1
+shader_parameter/total_phases = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfhsy"]
+bg_color = Color(0.984314, 0.654902, 0.0509804, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebrng"]
+bg_color = Color(0.290196, 0.290196, 0.290196, 0.662745)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1wr3"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_sc87w"]
+default_font = ExtResource("9_b75eh")
+default_font_size = 32
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_sfhsy")
+GridContainer/constants/h_separation = 40
+GridContainer/constants/v_separation = 16
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_ebrng")
+TextEdit/colors/font_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_placeholder_color = Color(0.384314, 0.384314, 0.384314, 0.6)
+TextEdit/constants/caret_width = 4
+TextEdit/styles/normal = SubResource("StyleBoxFlat_g1wr3")
+
+[node name="GameSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1915.0
+offset_bottom = 1075.0
+script = ExtResource("1_gduni")
+
+[node name="Base" type="Node2D" parent="."]
+
+[node name="Sunset" type="Sprite2D" parent="Base"]
+material = SubResource("ShaderMaterial_wn46i")
+position = Vector2(0, 1080)
+scale = Vector2(1, -1)
+texture = ExtResource("3_shw3k")
+centered = false
+
+[node name="SearchShadow" type="Polygon2D" parent="Base"]
+position = Vector2(15, 0)
+color = Color(0.309804, 0.301961, 0.25098, 1)
+polygon = PackedVector2Array(618, -13, 631, 1091, -17, 1099, -47, -45)
+
+[node name="Search" type="Polygon2D" parent="Base"]
+color = Color(0.937255, 0.929412, 0.921569, 1)
+polygon = PackedVector2Array(618, -13, 631, 1091, -17, 1099, -47, -45)
+
+[node name="Separator" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1953.0
+offset_bottom = 1089.0
+theme_override_constants/separation = 10
+
+[node name="Search" type="VBoxContainer" parent="Separator"]
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+theme_override_constants/separation = 20
+script = ExtResource("2_8kqyv")
+
+[node name="Title" type="RichTextLabel" parent="Separator/Search"]
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]SEARCH
+"
+fit_content = true
+
+[node name="SearchBar" type="HBoxContainer" parent="Separator/Search"]
+layout_mode = 2
+
+[node name="SearchBar" type="TextEdit" parent="Separator/Search/SearchBar"]
+custom_minimum_size = Vector2(538, 62)
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+placeholder_text = "Write a game's title..."
+
+[node name="SearchButton" type="Button" parent="Separator/Search/SearchBar"]
+custom_minimum_size = Vector2(62, 62)
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+text = ">"
+
+[node name="Results" type="VBoxContainer" parent="Separator/Search"]
+layout_mode = 2
+
+[node name="NoMatches" type="Label" parent="Separator/Search/Results"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "No matching games found"
+horizontal_alignment = 1
+
+[node name="Game1" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game2" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game3" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game4" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game5" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game6" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game7" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game8" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game9" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game10" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game11" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Game12" parent="Separator/Search/Results" instance=ExtResource("4_v23py")]
+layout_mode = 2
+text_overrun_behavior = 3
+
+[node name="Games" type="VBoxContainer" parent="Separator"]
+layout_mode = 2
+script = ExtResource("5_ee5jf")
+
+[node name="Padding" type="HBoxContainer" parent="Separator/Games"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Separator/Games/Padding"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Separator/Games/Padding"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+columns = 6
+
+[node name="Info" type="HBoxContainer" parent="Separator/Games"]
+layout_mode = 2
+
+[node name="Explanation" type="RichTextLabel" parent="Separator/Games/Info"]
+custom_minimum_size = Vector2(1086, 80)
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+text = "      CLICK TO REMOVE A GAME"
+fit_content = true
+
+[node name="Count" type="RichTextLabel" parent="Separator/Games/Info"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme = ExtResource("2_ftmlp")
+text = " 0/24"
+fit_content = true
+text_direction = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Create" type="Button" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 991.0
+offset_right = 571.0
+offset_bottom = 1060.0
+theme = ExtResource("2_ftmlp")
+text = "CREATE"
+
+[node name="LoadingScreen" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 1915.0
+offset_bottom = 1075.0
+color = Color(0, 0, 0, 0.768627)
+script = ExtResource("6_i7bgs")
+
+[node name="Text" type="RichTextLabel" parent="LoadingScreen"]
+layout_mode = 0
+offset_top = 376.0
+offset_right = 1920.0
+offset_bottom = 697.0
+theme = ExtResource("2_ftmlp")
+theme_override_font_sizes/normal_font_size = 196
+bbcode_enabled = true
+text = "[center]LOADING"
+fit_content = true
+
+[node name="Bingo" type="Node2D" parent="."]
+visible = false
+script = ExtResource("10_aab0b")
+
+[node name="Black" type="Polygon2D" parent="Bingo"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-5, -5, 1915, -5, 1915, 1075, -5, 1075)
+
+[node name="White" type="Polygon2D" parent="Bingo"]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(165, -5, 1765, -5, 1745, 1075, 145, 1075)
+
+[node name="Spike" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(356, -7)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1799.72, 89)
+
+[node name="Spike2" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(388, -7)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1807.31, 31)
+
+[node name="Spike3" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(375, 1109)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1795.92, -97)
+
+[node name="Spike4" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(340, 1109)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1808.58, -159)
+
+[node name="Spike5" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(-1317, 1109)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1836.42, -158)
+
+[node name="Spike7" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(-1291, -9)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1825.03, 109)
+
+[node name="Spike8" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(-1323, -9)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1833.89, 55)
+
+[node name="Spike6" type="Polygon2D" parent="Bingo/White"]
+position = Vector2(-1349, 1109)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1798.45, -22, 1835.16, -16, 1842.75, -87)
+
+[node name="Orange" type="Polygon2D" parent="Bingo"]
+position = Vector2(200.432, 0)
+scale = Vector2(0.790123, 1)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(165, -5, 1765, -5, 1745, 1075, 145, 1075)
+
+[node name="Spike" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(34.8906, -29)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1785.8, 115)
+
+[node name="Spike2" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-22.0625, -9)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1805.5, -14, 1845.28, -15, 1798.45, 178)
+
+[node name="Spike7" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-1700.28, -18)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1792.13, -10, 1845.28, -15, 1832.63, 240)
+
+[node name="Spike8" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-1758.5, -58)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1792.13, -10, 1827.56, -14, 1849.08, 163)
+
+[node name="Spike4" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-42.3125, 936)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1806.05, -106, 1840.22, 168, 1798.45, 178)
+
+[node name="Spike9" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-1718, 936)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1845.28, -45, 1840.22, 168, 1804.78, 165)
+
+[node name="Spike10" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-1778.75, 936)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1864.27, 48, 1840.22, 168, 1804.78, 165)
+
+[node name="Spike5" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(18.4375, 918)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1784.53, 69, 1825.03, 171, 1798.45, 178)
+
+[node name="Spike3" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-5.60938, 77)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1800.98, 114, 1828.83, 46, 1830.09, 94, 1798.45, 178)
+
+[node name="Spike6" type="Polygon2D" parent="Bingo/Orange"]
+position = Vector2(-1714.2, 754)
+color = Color(0.662745, 0, 0.847059, 1)
+polygon = PackedVector2Array(1795.92, 138, 1816.17, 41, 1823.77, 91, 1797.19, 193)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Bingo"]
+offset_left = 315.0
+offset_right = 1595.0
+offset_bottom = 1075.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bingo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" parent="Bingo/VBoxContainer/HBoxContainer" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control2" parent="Bingo/VBoxContainer/HBoxContainer" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control3" parent="Bingo/VBoxContainer/HBoxContainer" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control4" parent="Bingo/VBoxContainer/HBoxContainer" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control5" parent="Bingo/VBoxContainer/HBoxContainer" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="ShelfShadow" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer"]
+position = Vector2(16, -20)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(96, 211, 1136, 202, 1104, 283, 144, 265)
+
+[node name="Shelf" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer"]
+position = Vector2(0, -29)
+polygon = PackedVector2Array(96, 211, 1136, 202, 1104, 283, 144, 265)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Bingo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" parent="Bingo/VBoxContainer/HBoxContainer2" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control2" parent="Bingo/VBoxContainer/HBoxContainer2" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control3" parent="Bingo/VBoxContainer/HBoxContainer2" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control4" parent="Bingo/VBoxContainer/HBoxContainer2" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control5" parent="Bingo/VBoxContainer/HBoxContainer2" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="ShelfShadow" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer2"]
+position = Vector2(16, -17)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(80, 184, 1136, 211, 1088, 256, 128, 256)
+
+[node name="Shelf" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer2"]
+position = Vector2(0, -26)
+polygon = PackedVector2Array(80, 184, 1136, 211, 1088, 256, 128, 256)
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Bingo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" parent="Bingo/VBoxContainer/HBoxContainer3" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control2" parent="Bingo/VBoxContainer/HBoxContainer3" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control3" parent="Bingo/VBoxContainer/HBoxContainer3" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Shadow" parent="Bingo/VBoxContainer/HBoxContainer3/Control3" index="0"]
+visible = false
+
+[node name="Cover" parent="Bingo/VBoxContainer/HBoxContainer3/Control3" index="1"]
+visible = false
+
+[node name="Control4" parent="Bingo/VBoxContainer/HBoxContainer3" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control5" parent="Bingo/VBoxContainer/HBoxContainer3" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Polygon2D3" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer3"]
+position = Vector2(16, 4)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(80, 175, 512, 184, 496, 220, 96, 229)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer3"]
+position = Vector2(640, 4)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(80, 175, 512, 166, 480, 220, 96, 220)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer3"]
+position = Vector2(0, -5)
+polygon = PackedVector2Array(80, 175, 512, 184, 496, 220, 96, 229)
+
+[node name="Polygon2D8" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer3"]
+position = Vector2(624, -5)
+polygon = PackedVector2Array(80, 175, 512, 166, 480, 220, 96, 220)
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Bingo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" parent="Bingo/VBoxContainer/HBoxContainer4" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control2" parent="Bingo/VBoxContainer/HBoxContainer4" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control3" parent="Bingo/VBoxContainer/HBoxContainer4" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control4" parent="Bingo/VBoxContainer/HBoxContainer4" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control5" parent="Bingo/VBoxContainer/HBoxContainer4" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Polygon2D5" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer4"]
+position = Vector2(16, -11)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(80, 202, 1136, 193, 1104, 256, 96, 247)
+
+[node name="Polygon2D6" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer4"]
+position = Vector2(0, -20)
+polygon = PackedVector2Array(80, 202, 1136, 193, 1104, 256, 96, 247)
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Bingo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" parent="Bingo/VBoxContainer/HBoxContainer5" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control2" parent="Bingo/VBoxContainer/HBoxContainer5" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control3" parent="Bingo/VBoxContainer/HBoxContainer5" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control4" parent="Bingo/VBoxContainer/HBoxContainer5" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Control5" parent="Bingo/VBoxContainer/HBoxContainer5" instance=ExtResource("10_y8pi4")]
+layout_mode = 2
+
+[node name="Polygon2D6" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer5"]
+position = Vector2(16, -8)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(96, 193, 1136, 193, 1120, 247, 112, 247)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Bingo/VBoxContainer/HBoxContainer5"]
+position = Vector2(0, -17)
+polygon = PackedVector2Array(96, 193, 1136, 193, 1120, 247, 112, 247)
+
+[node name="GMX" type="Polygon2D" parent="Bingo"]
+position = Vector2(-1042, -11)
+scale = Vector2(0.790123, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(1780.73, 114, 1774.41, 61, 1828.83, 30, 1852.88, 40, 1803.52, 69, 1806.05, 100, 1838.95, 113, 1866.8, 91, 1861.73, 72, 1833.89, 85, 1813.64, 73, 1868.06, 46, 1888.31, 56, 1894.64, 104, 1840.22, 135)
+
+[node name="GMX2" type="Polygon2D" parent="Bingo"]
+position = Vector2(337.909, 824)
+scale = Vector2(0.463029, 0.631579)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(2460.09, 248.583, 2468.72, 177.333, 2537.83, 223.25, 2546.47, 199.5, 2563.75, 231.167, 2565.91, 220.083, 2578.08, 234, 2676.05, 220.083, 2630.7, 286.583, 2624.22, 300.833, 2637.18, 311.917, 2619.9, 313.5, 2624.22, 321.417, 2609.1, 319.833, 2519.86, 323, 2451.45, 289.75, 2434.17, 286.583, 2450.25, 279, 2432.01, 270.75, 2453.61, 266)
+
+[node name="GMX3" type="Polygon2D" parent="Bingo"]
+position = Vector2(-1058, -20)
+scale = Vector2(0.790123, 1)
+polygon = PackedVector2Array(1780.73, 114, 1774.41, 61, 1828.83, 30, 1852.88, 40, 1803.52, 69, 1806.05, 100, 1838.95, 113, 1866.8, 91, 1861.73, 72, 1833.89, 85, 1813.64, 73, 1868.06, 46, 1888.31, 56, 1894.64, 104, 1840.22, 135)
+
+[node name="GMX4" type="Polygon2D" parent="Bingo"]
+position = Vector2(321.909, 815)
+scale = Vector2(0.463029, 0.631579)
+polygon = PackedVector2Array(2460.09, 248.583, 2468.72, 177.333, 2537.83, 223.25, 2546.47, 199.5, 2563.75, 231.167, 2565.91, 220.083, 2578.08, 234, 2676.05, 220.083, 2630.7, 286.583, 2624.22, 300.833, 2637.18, 311.917, 2619.9, 313.5, 2624.22, 321.417, 2609.1, 319.833, 2519.86, 323, 2451.45, 289.75, 2434.17, 286.583, 2450.25, 279, 2432.01, 270.75, 2453.61, 266)
+
+[node name="Back" type="Button" parent="Bingo"]
+offset_left = 16.0
+offset_top = 972.0
+offset_right = 155.0
+offset_bottom = 1048.0
+theme = ExtResource("2_ftmlp")
+text = "BACK"
+
+[node name="Save" type="Button" parent="Bingo"]
+offset_left = 1760.0
+offset_top = 972.0
+offset_right = 1899.0
+offset_bottom = 1048.0
+theme = ExtResource("2_ftmlp")
+text = "SAVE"
+
+[node name="Console" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 502.0
+mouse_filter = 2
+theme = SubResource("Theme_sc87w")
+fit_content = true
+scroll_following = true
+script = ExtResource("10_n6arx")
+
+[node name="Timer" type="Timer" parent="Console"]
+one_shot = true
+
+[connection signal="text_changed" from="Separator/Search/SearchBar/SearchBar" to="Separator/Search" method="text_changed"]
+[connection signal="pressed" from="Separator/Search/SearchBar/SearchButton" to="Separator/Search" method="search"]
+[connection signal="pressed" from="Create" to="Separator/Games" method="create"]
+[connection signal="pressed" from="Bingo/Back" to="Bingo" method="back"]
+[connection signal="pressed" from="Bingo/Save" to="Bingo" method="save"]
+[connection signal="timeout" from="Console/Timer" to="Console" method="reset"]
+
+[editable path="Bingo/VBoxContainer/HBoxContainer3/Control3"]

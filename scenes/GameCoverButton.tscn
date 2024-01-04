@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnqj4rn6xpv5o"]
+
+[ext_resource type="Texture2D" uid="uid://dlwol6o5l1oos" path="res://resources/sprites/test/co79vq.png" id="1_qrsng"]
+[ext_resource type="Script" path="res://scenes/scripts/GameCoverButton.gd" id="2_c1fxu"]
+
+[node name="GameCoverButton" type="TextureButton"]
+custom_minimum_size = Vector2(165, 220)
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_qrsng")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_c1fxu")
