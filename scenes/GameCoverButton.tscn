@@ -11,3 +11,5 @@ texture_normal = ExtResource("1_qrsng")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("2_c1fxu")
+
+[connection signal="pressed" from="." to="." method="clicked"]

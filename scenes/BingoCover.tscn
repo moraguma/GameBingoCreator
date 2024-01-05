@@ -8,12 +8,12 @@
 shader = ExtResource("1_c77xx")
 
 [node name="BingoCover" type="Control"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(150, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1720.0
+offset_right = -1770.0
 offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -21,13 +21,11 @@ script = ExtResource("1_qcoct")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3laws")
-position = Vector2(116, 116)
-rotation = 0.300197
-scale = Vector2(0.625, 0.625)
+position = Vector2(75, 100)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_yfob5")
 
 [node name="Cover" type="Sprite2D" parent="."]
-position = Vector2(100, 100)
-rotation = 0.300197
-scale = Vector2(0.625, 0.625)
+position = Vector2(75, 100)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("1_yfob5")

@@ -5,11 +5,7 @@ void vertex() {
 }
 
 void fragment() {
-	if (UV.x + UV.y < 1.8) {
-		COLOR = vec4(vec3(0.0), 1.0);
-	} else {
-		COLOR = vec4(0.0);
-	}
+	COLOR = vec4(vec3(1.0), 1.0);
 }
 
 void light() {
