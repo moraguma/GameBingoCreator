@@ -48,10 +48,10 @@ func save():
 	await get_tree().process_frame
 	
 	var img = get_viewport().get_texture().get_image()
-	var path = "res://bingos/%s.png" % [Time.get_datetime_string_from_system().replace(":", "-")]
+	var path = "user://%s.png" % [Time.get_datetime_string_from_system().replace(":", "-")]
 	var error = img.save_png(path)
 	
-	console.write("Saved to %s" % [path])
+	console.write("Saved to %s" % [ProjectSettings.globalize_path(path)])
 	
 	back_button.show()
 	save_button.show()
