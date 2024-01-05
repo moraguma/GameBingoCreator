@@ -11,7 +11,7 @@ var authentication_headers: PackedStringArray
 @onready var loading_screen: LoadingScreen = $LoadingScreen
 @onready var http_request = $HTTPRequest
 
-@onready var console: RichTextLabel = $Console
+@onready var console: Console = $Console
 
 # --------------------------------------------------------------------------------------------------
 # API CALLS
@@ -39,7 +39,7 @@ func _ready():
 ## is given as a list of dictionaries with the entries id, name and cover
 func search_for_titles(keyword: String) -> Array:
 	var url = "https://api.igdb.com/v4/games"
-	var body = "search \"%s\"; fields name, cover.image_id; where version_parent = null & category = (0,1,2); limit 12;" % keyword
+	var body = "search \"%s\"; fields name, cover.image_id; where version_parent = null & category = (0,1,2,6,7,8,9,10); limit 12;" % keyword
 	make_request(url, authentication_headers, HTTPClient.METHOD_POST, body)
 	
 	loading_screen.display("SEARCHING")

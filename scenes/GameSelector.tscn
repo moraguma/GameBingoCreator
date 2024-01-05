@@ -319,61 +319,51 @@ scale = Vector2(0.790123, 1)
 
 [node name="Spike" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-361.25, -29)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1805.5, -14, 1835.16, -16, 1785.8, 115)
 
 [node name="Spike2" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-418.204, -9)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1805.5, -14, 1845.28, -15, 1798.45, 178)
 
 [node name="Spike7" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-1306.67, -18)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1792.13, -10, 1845.28, -15, 1832.63, 240)
 
 [node name="Spike8" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-1364.89, -58)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1792.13, -10, 1827.56, -14, 1849.08, 163)
 
 [node name="Spike4" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-422, 936)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1806.05, -106, 1840.22, 168, 1798.45, 178)
 
 [node name="Spike9" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-1320.59, 936)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1845.28, -45, 1840.22, 168, 1804.78, 165)
 
 [node name="Spike10" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-1381.34, 936)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1864.27, 48, 1840.22, 168, 1804.78, 165)
 
 [node name="Spike5" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-361.25, 918)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1784.53, 69, 1825.03, 171, 1798.45, 178)
 
 [node name="Spike3" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-329.609, -28)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1800.98, 114, 1828.83, 46, 1830.09, 94, 1798.45, 178)
 
 [node name="Spike6" type="Polygon2D" parent="Bingo/PurpleSpikes"]
 position = Vector2(-1371.22, 810)
-scale = Vector2(1, 1)
 color = Color(0.662745, 0, 0.847059, 1)
 polygon = PackedVector2Array(1795.92, 138, 1816.17, 41, 1823.77, 91, 1797.19, 193)
 
