@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+
 resources/data/client_secret.txt
+bingos/
